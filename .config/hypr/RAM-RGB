@@ -1,0 +1,53 @@
+#!/bin/bash
+
+ram1addr=0x61
+ram2addr=0x63
+
+if ! [[ $1 =~ ^0x[0-9a-fA-F]{2}$ ]]; then
+    echo "$1 is not a valid octet hex value"
+    exit 1
+fi
+red=$1
+
+if ! [[ $2 =~ ^0x[0-9a-fA-F]{2}$ ]]; then
+    echo "$2 is not a valid octet hex value"
+    exit 1
+fi
+green=$2
+
+if ! [[ $3 =~ ^0x[0-9a-fA-F]{2}$ ]]; then
+    echo "$3 is not a valid octet hex value"
+    exit 1
+fi
+blue=$3
+
+echo "Setting static R=$red G=$green B=$blue"
+
+i2cset -y 2 $ram1addr 0x08 0x53
+sleep 0.020
+i2cset -y 2 $ram1addr 0x09 0x00
+sleep 0.020
+i2cset -y 2 $ram1addr 0x31 $red
+sleep 0.020
+i2cset -y 2 $ram1addr 0x32 $green
+sleep 0.020
+i2cset -y 2 $ram1addr 0x33 $blue
+sleep 0.020
+i2cset -y 2 $ram1addr 0x20 0x1e
+sleep 0.020
+i2cset -y 2 $ram1addr 0x08 0x44
+
+sleep 0.020
+i2cset -y 2 $ram2addr 0x08 0x53
+sleep 0.020
+i2cset -y 2 $ram2addr 0x09 0x00
+sleep 0.020
+i2cset -y 2 $ram2addr 0x31 $red
+sleep 0.020
+i2cset -y 2 $ram2addr 0x32 $green
+sleep 0.020
+i2cset -y 2 $ram2addr 0x33 $blue
+sleep 0.020
+i2cset -y 2 $ram2addr 0x20 0x1e
+sleep 0.020
+i2cset -y 2 $ram2addr 0x08 0x44
