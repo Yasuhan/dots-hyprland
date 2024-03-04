@@ -11,11 +11,6 @@ import { getCalendarLayout } from "./calendar_layout.js";
 let calendarJson = getCalendarLayout(undefined, true);
 let monthshift = 0;
 
-function fileExists(filePath) {
-    let file = Gio.File.new_for_path(filePath);
-    return file.query_exists(null);
-}
-
 function getDateInXMonthsTime(x) {
     var currentDate = new Date(); // Get the current date
     var targetMonth = currentDate.getMonth() + x; // Calculate the target month
@@ -152,7 +147,7 @@ const contentStack = Widget.Stack({
         // 'stars': Widget.Label({ label: 'GitHub feed will be here' }),
     },
     transition: 'slide_up_down',
-    transitionDuration: 180,
+    transitionDuration: userOptions.animations.durationLarge,
     setup: (stack) => Utils.timeout(1, () => {
         stack.shown = defaultShown;
     })
@@ -205,3 +200,4 @@ export const ModuleCalendar = () => Box({
         box.pack_end(contentStack, false, false, 0);
     }
 })
+

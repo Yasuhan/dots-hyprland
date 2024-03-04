@@ -10,8 +10,6 @@ import { enableClickthrough } from "../.widgetutils/clickthrough.js";
 import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
 import { currentShellMode } from '../../variables.js';
 
-const BATTERY_LOW = 20;
-
 const NormalOptionalWorkspaces = async () => {
     try {
         return (await import('./normal/workspaces_hyprland.js')).default();
@@ -80,8 +78,7 @@ export const Bar = async (monitor = 0) => {
         setup: (self) => {
             self.hook(Battery, (self) => {
                 if(!Battery.available) return;
-                print(Battery.percent)
-                self.toggleClassName('bar-bg-focus-batterylow', Battery.percent <= BATTERY_LOW);
+                self.toggleClassName('bar-bg-focus-batterylow', Battery.percent <= userOptions.battery.low);
             })
         }
     });
@@ -94,7 +91,7 @@ export const Bar = async (monitor = 0) => {
         child: Widget.Stack({
             homogeneous: false,
             transition: 'slide_up_down',
-            transitionDuration: 200,
+            transitionDuration: userOptions.animations.durationLarge,
             children: {
                 'normal': normalBarContent,
                 'focus': focusedBarContent,
@@ -106,8 +103,9 @@ export const Bar = async (monitor = 0) => {
     });
 }
 
-export const BarCornerTopleft = (id = '') => Widget.Window({
-    name: `barcornertl${id}`,
+export const BarCornerTopleft = (monitor = 0) => Widget.Window({
+    monitor,
+    name: `barcornertl${monitor}`,
     layer: 'top',
     anchor: ['top', 'left'],
     exclusivity: 'normal',
@@ -115,8 +113,9 @@ export const BarCornerTopleft = (id = '') => Widget.Window({
     child: RoundedCorner('topleft', { className: 'corner', }),
     setup: enableClickthrough,
 });
-export const BarCornerTopright = (id = '') => Widget.Window({
-    name: `barcornertr${id}`,
+export const BarCornerTopright = (monitor = 0) => Widget.Window({
+    monitor,
+    name: `barcornertr${monitor}`,
     layer: 'top',
     anchor: ['top', 'right'],
     exclusivity: 'normal',

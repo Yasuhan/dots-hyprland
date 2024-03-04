@@ -9,22 +9,14 @@ import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
 import { WWO_CODE, WEATHER_SYMBOL, NIGHT_WEATHER_SYMBOL } from '../../.commondata/weather.js';
 
-const BATTERY_LOW = 20;
 const WEATHER_CACHE_FOLDER = `${GLib.get_user_cache_dir()}/ags/weather`;
 Utils.exec(`mkdir -p ${WEATHER_CACHE_FOLDER}`);
-
-let WEATHER_CITY = '';
-try {
-    WEATHER_CITY = GLib.getenv('AGS_WEATHER_CITY');
-} catch (e) {
-    print(e);
-}
 
 const BatBatteryProgress = () => {
     const _updateProgress = (circprog) => { // Set circular progress value
         circprog.css = `font-size: ${Math.abs(Battery.percent)}px;`
 
-        circprog.toggleClassName('bar-batt-circprog-low', Battery.percent <= BATTERY_LOW);
+        circprog.toggleClassName('bar-batt-circprog-low', Battery.percent <= userOptions.battery.low);
         circprog.toggleClassName('bar-batt-circprog-full', Battery.charged);
     }
     return AnimatedCircProg({
@@ -38,7 +30,7 @@ const BatBatteryProgress = () => {
 
 const BarClock = () => Widget.Box({
     vpack: 'center',
-    className: 'spacing-h-5 txt-onSurfaceVariant bar-clock-box',
+    className: 'spacing-h-4 txt-onSurfaceVariant bar-clock-box',
     children: [
         Widget.Label({
             className: 'bar-clock',
@@ -71,7 +63,7 @@ const UtilButton = ({ name, icon, onClicked }) => Button({
 
 const Utilities = () => Box({
     hpack: 'center',
-    className: 'spacing-h-5 txt-onSurfaceVariant',
+    className: 'spacing-h-4 txt-onSurfaceVariant',
     children: [
         UtilButton({
             name: 'Screen snip', icon: 'screenshot_region', onClicked: () => {
@@ -96,7 +88,7 @@ const BarBattery = () => Box({
     className: 'spacing-h-4 txt-onSurfaceVariant',
     children: [
         Revealer({
-            transitionDuration: 150,
+            transitionDuration: userOptions.animations.durationSmall,
             revealChild: false,
             transition: 'slide_right',
             child: MaterialIcon('bolt', 'norm', { tooltipText: "Charging" }),
@@ -119,7 +111,7 @@ const BarBattery = () => Box({
                     MaterialIcon('settings_heart', 'small'),
                 ],
                 setup: (self) => self.hook(Battery, box => {
-                    box.toggleClassName('bar-batt-low', Battery.percent <= BATTERY_LOW);
+                    box.toggleClassName('bar-batt-low', Battery.percent <= userOptions.battery.low);
                     box.toggleClassName('bar-batt-full', Battery.charged);
                 }),
             }),
@@ -141,10 +133,10 @@ const BarGroup = ({ child }) => Widget.Box({
 });
 const BatteryModule = () => Stack({
     transition: 'slide_up_down',
-    transitionDuration: 150,
+    transitionDuration: userOptions.animations.durationLarge,
     children: {
         'laptop': Box({
-            className: 'spacing-h-5', children: [
+            className: 'spacing-h-4', children: [
                 BarGroup({ child: Utilities() }),
                 BarGroup({ child: BarBattery() }),
             ]
@@ -153,7 +145,7 @@ const BatteryModule = () => Stack({
             child: Box({
                 hexpand: true,
                 hpack: 'center',
-                className: 'spacing-h-5',
+                className: 'spacing-h-4 txt-onSurfaceVariant',
                 children: [
                     MaterialIcon('device_thermostat', 'small'),
                     Label({
@@ -192,8 +184,8 @@ const BatteryModule = () => Stack({
                                 print(err);
                             }
                         });
-                    if (WEATHER_CITY != '' && WEATHER_CITY != null) {
-                        updateWeatherForCity(WEATHER_CITY);
+                    if (userOptions.weather.city != '' && userOptions.weather.city != null) {
+                        updateWeatherForCity(userOptions.weather.city);
                     }
                     else {
                         Utils.execAsync('curl ipinfo.io')
@@ -227,7 +219,7 @@ export default () => Widget.EventBox({
     onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
     onPrimaryClick: () => App.toggleWindow('sideright'),
     child: Widget.Box({
-        className: 'spacing-h-5',
+        className: 'spacing-h-4',
         children: [
             BarGroup({ child: BarClock() }),
             BatteryModule(),

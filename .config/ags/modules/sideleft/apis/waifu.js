@@ -6,6 +6,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 const { Box, Button, Label, Overlay, Revealer, Scrollable, Stack } = Widget;
 const { execAsync, exec } = Utils;
+import { fileExists } from '../../.miscutils/files.js';
 import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 import { MarginRevealer } from '../../.widgethacks/advancedrevealers.js';
 import { setupCursorHover, setupCursorHoverInfo } from '../../.widgetutils/cursorhover.js';
@@ -20,17 +21,12 @@ async function getImageViewerApp(preferredApp) {
 }
 
 const IMAGE_REVEAL_DELAY = 13; // Some wait for inits n other weird stuff
-const IMAGE_VIEWER_APP = getImageViewerApp('loupe'); // Gnome's image viewer cuz very comfortable zooming
+const IMAGE_VIEWER_APP = getImageViewerApp(userOptions.apps.imageViewer); // Gnome's image viewer cuz very comfortable zooming
 const USER_CACHE_DIR = GLib.get_user_cache_dir();
 
 // Create cache folder and clear pics from previous session
 Utils.exec(`bash -c 'mkdir -p ${USER_CACHE_DIR}/ags/media/waifus'`);
 Utils.exec(`bash -c 'rm ${USER_CACHE_DIR}/ags/media/waifus/*'`);
-
-export function fileExists(filePath) {
-    let file = Gio.File.new_for_path(filePath);
-    return file.query_exists(null);
-}
 
 const CommandButton = (command) => Button({
     className: 'sidebar-chat-chip sidebar-chat-chip-action txt txt-small',
@@ -74,7 +70,7 @@ const WaifuImage = (taglist) => {
     const downloadState = Stack({
         homogeneous: false,
         transition: 'slide_up_down',
-        transitionDuration: 150,
+        transitionDuration: userOptions.animations.durationSmall,
         children: {
             'api': ImageState('api', 'Calling API'),
             'download': ImageState('downloading', 'Downloading image'),
@@ -132,7 +128,7 @@ const WaifuImage = (taglist) => {
     });
     const blockImageRevealer = Revealer({
         transition: 'slide_down',
-        transitionDuration: 150,
+        transitionDuration: userOptions.animations.durationLarge,
         revealChild: false,
         child: Overlay({
             child: Box({
@@ -332,7 +328,7 @@ export const waifuView = Scrollable({
 const waifuTags = Revealer({
     revealChild: false,
     transition: 'crossfade',
-    transitionDuration: 150,
+    transitionDuration: userOptions.animations.durationLarge,
     child: Box({
         className: 'spacing-h-5',
         children: [

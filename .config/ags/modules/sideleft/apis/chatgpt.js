@@ -12,8 +12,6 @@ import { markdownTest } from '../../.miscutils/md2pango.js';
 import { MarginRevealer } from '../../.widgethacks/advancedrevealers.js';
 import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 
-Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets/icons`);
-
 export const chatGPTTabIcon = Icon({
     hpack: 'center',
     className: 'sidebar-chat-apiswitcher-icon',
@@ -81,7 +79,7 @@ const ProviderSwitcher = () => {
     const providerList = Revealer({
         revealChild: false,
         transition: 'slide_down',
-        transitionDuration: 180,
+        transitionDuration: userOptions.animations.durationLarge,
         child: Box({
             vertical: true, className: 'spacing-v-5 sidebar-chat-providerswitcher-list',
             children: [
@@ -211,7 +209,7 @@ export const OpenaiApiKeyInstructions = () => Box({
     homogeneous: true,
     children: [Revealer({
         transition: 'slide_down',
-        transitionDuration: 150,
+        transitionDuration: userOptions.animations.durationLarge,
         setup: (self) => self
             .hook(GPTService, (self, hasKey) => {
                 self.revealChild = (GPTService.key.length == 0);

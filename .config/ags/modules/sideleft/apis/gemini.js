@@ -11,7 +11,6 @@ import { ConfigToggle, ConfigSegmentedSelection, ConfigGap } from '../../.common
 import { markdownTest } from '../../.miscutils/md2pango.js';
 import { MarginRevealer } from '../../.widgethacks/advancedrevealers.js';
 
-Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets/icons`);
 const MODEL_NAME = `Gemini`;
 
 export const geminiTabIcon = Icon({
@@ -114,7 +113,7 @@ export const GoogleAiInstructions = () => Box({
     homogeneous: true,
     children: [Revealer({
         transition: 'slide_down',
-        transitionDuration: 150,
+        transitionDuration: userOptions.animations.durationLarge,
         setup: (self) => self
             .hook(GeminiService, (self, hasKey) => {
                 self.revealChild = (GeminiService.key.length == 0);

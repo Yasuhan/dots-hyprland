@@ -10,7 +10,7 @@ export const DirectoryButton = ({ parentPath, name, type, icon }) => {
     const actionText = Widget.Revealer({
         revealChild: false,
         transition: "crossfade",
-        transitionDuration: 200,
+        transitionDuration: userOptions.animations.durationLarge,
         child: Widget.Label({
             className: 'overview-search-results-txt txt txt-small txt-action',
             label: 'Open',
@@ -19,7 +19,7 @@ export const DirectoryButton = ({ parentPath, name, type, icon }) => {
     const actionTextRevealer = Widget.Revealer({
         revealChild: false,
         transition: "slide_left",
-        transitionDuration: 300,
+        transitionDuration: userOptions.animations.durationSmall,
         child: actionText,
     });
     return Widget.Button({
@@ -78,7 +78,7 @@ export const DesktopEntryButton = (app) => {
     const actionText = Widget.Revealer({
         revealChild: false,
         transition: "crossfade",
-        transitionDuration: 200,
+        transitionDuration: userOptions.animations.durationLarge,
         child: Widget.Label({
             className: 'overview-search-results-txt txt txt-small txt-action',
             label: 'Launch',
@@ -87,7 +87,7 @@ export const DesktopEntryButton = (app) => {
     const actionTextRevealer = Widget.Revealer({
         revealChild: false,
         transition: "slide_left",
-        transitionDuration: 300,
+        transitionDuration: userOptions.animations.durationSmall,
         child: actionText,
     });
     return Widget.Button({
@@ -153,11 +153,11 @@ export const CustomCommandButton = ({ text = '' }) => searchItem({
 
 export const SearchButton = ({ text = '' }) => searchItem({
     materialIconName: 'travel_explore',
-    name: 'Search Google',
+    name: 'Search the web',
     actionName: 'Go',
     content: `${text}`,
     onActivate: () => {
         App.closeWindow('overview');
-        execAsync(['bash', '-c', `xdg-open 'https://www.google.com/search?q=${text} -site:quora.com' &`]).catch(print); // quora is useless
+        execAsync(['bash', '-c', `xdg-open '${userOptions.search.engineBaseUrl}${text} ${['', ...userOptions.search.excludedSites].join(' -site:')}' &`]).catch(print);
     },
 });
