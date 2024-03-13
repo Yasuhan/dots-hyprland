@@ -64,7 +64,7 @@ export default () => {
         },
         nameSetup: (self) => Utils.timeout(1, () => {
             const updateAudioDevice = (self) => {
-                const usingHeadphones = (Audio.speaker?.stream?.port)?.includes('Headphones');
+                const usingHeadphones = (Audio.speaker?.stream?.port)?.toLowerCase().includes('headphone');
                 if (volumeIndicator.attribute.headphones === undefined ||
                     volumeIndicator.attribute.headphones !== usingHeadphones) {
                     volumeIndicator.attribute.headphones = usingHeadphones;
