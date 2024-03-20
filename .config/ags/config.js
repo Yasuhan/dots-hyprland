@@ -16,7 +16,6 @@ import Indicator from './modules/indicators/main.js';
 import Osk from './modules/onscreenkeyboard/main.js';
 import Overview from './modules/overview/main.js';
 import Session from './modules/session/main.js';
-import SideLeft from './modules/sideleft/main.js';
 import SideRight from './modules/sideright/main.js';
 
 const COMPILED_STYLE_DIR = `${GLib.get_user_cache_dir()}/ags/user/generated`
@@ -44,7 +43,6 @@ const Windows = () => [
     Overview(),
     forMonitors(Indicator),
     Cheatsheet(),
-    SideLeft(),
     SideRight(),
     Osk(),
     Session(),
@@ -62,7 +60,6 @@ App.config({
     stackTraceOnError: true,
     closeWindowDelay: { // For animations
         'sideright': CLOSE_ANIM_TIME,
-        'sideleft': CLOSE_ANIM_TIME,
         'osk': CLOSE_ANIM_TIME,
     },
     windows: Windows().flat(1),
