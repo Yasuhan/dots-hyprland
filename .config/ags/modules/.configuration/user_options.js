@@ -27,9 +27,6 @@ let configOptions = {
     'music': {
         'preferredPlayer': "plasma-browser-integration",
     },
-    'onScreenKeyboard': {
-        'layout': "qwerty_full", // See modules/onscreenkeyboard/onscreenkeyboard.js for available layouts
-    },
     'overview': {
         'scale': 0.18, // Relative to screen size
         'numOfRows': 2,

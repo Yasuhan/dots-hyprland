@@ -13,7 +13,6 @@ import Cheatsheet from './modules/cheatsheet/main.js';
 // import Dock from './modules/dock/main.js';
 import Corner from './modules/screencorners/main.js';
 import Indicator from './modules/indicators/main.js';
-import Osk from './modules/onscreenkeyboard/main.js';
 import Overview from './modules/overview/main.js';
 import Session from './modules/session/main.js';
 import SideRight from './modules/sideright/main.js';
@@ -44,7 +43,6 @@ const Windows = () => [
     forMonitors(Indicator),
     Cheatsheet(),
     SideRight(),
-    Osk(),
     Session(),
     // forMonitors(Bar),
     // forMonitors(BarCornerTopleft),
@@ -60,7 +58,6 @@ App.config({
     stackTraceOnError: true,
     closeWindowDelay: { // For animations
         'sideright': CLOSE_ANIM_TIME,
-        'osk': CLOSE_ANIM_TIME,
     },
     windows: Windows().flat(1),
 });
