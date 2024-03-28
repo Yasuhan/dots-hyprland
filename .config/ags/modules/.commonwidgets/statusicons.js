@@ -25,15 +25,20 @@ function isLanguageMatch(abbreviation, word) {
     return false;
 }
 
-export const MicMuteIndicator = () => Widget.Revealer({
-    transition: 'slide_left',
+export const MicMuteIndicator = () => Widget.Stack({
+    transition: 'slide_up_down',
     transitionDuration: userOptions.animations.durationSmall,
-    revealChild: false,
-    setup: (self) => self.hook(Audio, (self) => {
-        self.revealChild = Audio.microphone.stream.is_muted;
-    }),
-    child: MaterialIcon('mic_off', 'norm'),
-});
+    children: {
+         'off': Widget.Label({ className: 'txt-norm icon-material', label: 'mic_off' }),
+         'on': Widget.Label({ className: 'txt-norm icon-material', label: 'mic' }),
+     },
+     setup: (self) => self.hook(Audio, stack => {
+         if (Audio.microphone?.stream?.is_muted)
+             stack.shown = 'off';
+         else
+             stack.shown = 'on';
+     }),
+ });
 
 export const NotificationIndicator = (notifCenterName = 'sideright') => {
     const widget = Widget.Revealer({
