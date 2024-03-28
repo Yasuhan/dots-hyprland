@@ -1,6 +1,5 @@
 const { Gtk } = imports.gi;
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 import WindowTitle from "./normal/spaceleft.js";
 import Indicators from "./normal/spaceright.js";
@@ -74,13 +73,6 @@ export const Bar = async (monitor = 0) => {
                 SideModule([]),
             ]
         }),
-        endWidget: Widget.Box({}),
-        setup: (self) => {
-            self.hook(Battery, (self) => {
-                if(!Battery.available) return;
-                self.toggleClassName('bar-bg-focus-batterylow', Battery.percent <= userOptions.battery.low);
-            })
-        }
     });
     return Widget.Window({
         monitor,

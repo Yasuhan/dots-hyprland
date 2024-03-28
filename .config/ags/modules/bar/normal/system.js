@@ -71,16 +71,6 @@ const Utilities = () => Box({
                     .catch(print)
             }
         }),
-        UtilButton({
-            name: 'Color picker', icon: 'colorize', onClicked: () => {
-                Utils.execAsync(['hyprpicker', '-a']).catch(print)
-            }
-        }),
-        UtilButton({
-            name: 'Toggle on-screen keyboard', icon: 'keyboard', onClicked: () => {
-                App.toggleWindow('osk');
-            }
-        }),
     ]
 })
 
@@ -141,7 +131,10 @@ const BatteryModule = () => Stack({
                 BarGroup({ child: BarBattery() }),
             ]
         }),
-        'desktop': BarGroup({
+        'desktop': Box({
+            className: 'spacging-h-4', children: [
+                BarGroup({ child: Utilities() }),
+                BarGroup({
             child: Box({
                 hexpand: true,
                 hpack: 'center',
@@ -198,6 +191,8 @@ const BatteryModule = () => Stack({
                 }),
             })
         }),
+      ]
+     }),
     },
     setup: (stack) => Utils.timeout(10, () => {
         if (!Battery.available) stack.shown = 'desktop';
