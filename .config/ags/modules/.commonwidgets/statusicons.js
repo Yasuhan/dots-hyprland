@@ -30,7 +30,7 @@ export const MicMuteIndicator = () => Widget.Revealer({
     transitionDuration: userOptions.animations.durationSmall,
     revealChild: false,
     setup: (self) => self.hook(Audio, (self) => {
-        self.revealChild = Audio.microphone.isMuted;
+        self.revealChild = Audio.microphone.stream.is_muted;
     }),
     child: MaterialIcon('mic_off', 'norm'),
 });
