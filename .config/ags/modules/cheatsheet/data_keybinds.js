@@ -51,7 +51,6 @@ export const keybindList = [[
             { "keys": ["", "+", "/"], "action": "Toggle this cheatsheet" },
             { "keys": ["", "+", "N"], "action": "Toggle system sidebar" },
             { "keys": ["", "+", "B", "OR", "", "+", "O"], "action": "Toggle utilities sidebar" },
-            { "keys": ["", "+", "K"], "action": "Toggle virtual keyboard" },
             { "keys": ["Ctrl", "Alt", "+", "Del"], "action": "Power/Session menu" },
 
             { "keys": ["Esc"], "action": "Exit a window" },

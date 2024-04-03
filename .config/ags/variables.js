@@ -60,7 +60,6 @@ globalThis['closeEverything'] = () => {
         App.closeWindow(`cheatsheet${i}`);
         App.closeWindow(`click2close${i}`);
     }
-    App.closeWindow('sideleft');
     App.closeWindow('sideright');
     App.closeWindow('overview');
     App.closeWindow('session');

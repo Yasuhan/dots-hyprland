@@ -25,7 +25,6 @@ export default (monitor = 0) => {
         attribute: {
             pixbuf: undefined,
             workspace: 1,
-            sideleft: 0,
             sideright: 0,
             updatePos: (self) => {
                 self.setCss(`font-size: ${self.attribute.workspace - self.attribute.sideleft + self.attribute.sideright}px;`)
