@@ -14,7 +14,6 @@ const WindowTitle = async () => {
     }
 }
 
-const OptionalWindowTitleInstance = await WindowTitle();
 
 export default () => Widget.EventBox({
     child: Widget.Box({

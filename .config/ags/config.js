@@ -6,6 +6,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js'
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 // Stuff
 import userOptions from './modules/.configuration/user_options.js';
+import { firstRunWelcome } from './services/messages.js';
 // Widgets
 import { Bar, BarCornerTopleft, BarCornerTopright } from './modules/bar/main.js';
 import Cheatsheet from './modules/cheatsheet/main.js';
@@ -16,6 +17,7 @@ import Indicator from './modules/indicators/main.js';
 import Overview from './modules/overview/main.js';
 import Session from './modules/session/main.js';
 import SideRight from './modules/sideright/main.js';
+import Click2Close from './modules/click2close/main.js';
 
 const COMPILED_STYLE_DIR = `${GLib.get_user_cache_dir()}/ags/user/generated`
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
@@ -41,31 +43,37 @@ const Windows = () => [
     // Dock(),
     Overview(),
     forMonitors(Indicator),
-    Cheatsheet(),
+    forMonitors(Cheatsheet),
+    SideLeft(),
     SideRight(),
     Session(),
     // forMonitors(Bar),
-    // forMonitors(BarCornerTopleft),
-    // forMonitors(BarCornerTopright),
     forMonitors((id) => Corner(id, 'top left')),
     forMonitors((id) => Corner(id, 'top right')),
     forMonitors((id) => Corner(id, 'bottom left')),
     forMonitors((id) => Corner(id, 'bottom right')),
+    forMonitors(BarCornerTopleft),
+    forMonitors(BarCornerTopright),
+    forMonitors(Click2Close),
 ];
+
 const CLOSE_ANIM_TIME = 210; // Longer than actual anim time to make sure widgets animate fully
+const closeWindowDelays = { // For animations
+    'sideright': CLOSE_ANIM_TIME,
+    'sideleft': CLOSE_ANIM_TIME,
+};
+for(let i = 0; i < (Gdk.Display.get_default()?.get_n_monitors() || 1); i++) {
+    closeWindowDelays[`osk${i}`] = CLOSE_ANIM_TIME;
+}
+
 App.config({
     css: `${COMPILED_STYLE_DIR}/style.css`,
     stackTraceOnError: true,
-    closeWindowDelay: { // For animations
-        'sideright': CLOSE_ANIM_TIME,
-    },
+    closeWindowDelay: closeWindowDelays,
     windows: Windows().flat(1),
 });
 
 // Stuff that don't need to be toggled. And they're async so ugh...
-// Bar().catch(print); // Use this to debug the bar. Single monitor only.
-// BarCornerTopleft().catch(print); // Use this to debug the bar. Single monitor only.
-// BarCornerTopright().catch(print); // Use this to debug the bar. Single monitor only.
 forMonitors(Bar);
-forMonitors(BarCornerTopleft);
-forMonitors(BarCornerTopright);
+// Bar().catch(print); // Use this to debug the bar. Single monitor only.
+
