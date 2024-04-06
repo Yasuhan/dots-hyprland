@@ -25,6 +25,10 @@ function forMonitors(widget) {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
     return range(n, 0).map(widget).flat(1);
 }
+function forMonitorsAsync(widget) {
+    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    return range(n, 0).forEach((n) => widget().catch(print))
+}
 
 // SCSS compilation
 Utils.exec(`bash -c 'echo "" > ${App.configDir}/scss/_musicwal.scss'`); // reset music styles
@@ -70,6 +74,6 @@ App.config({
 });
 
 // Stuff that don't need to be toggled. And they're async so ugh...
-forMonitors(Bar);
+forMonitorsAsync(Bar);
 // Bar().catch(print); // Use this to debug the bar. Single monitor only.
 
