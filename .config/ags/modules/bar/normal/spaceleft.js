@@ -15,26 +15,29 @@ const WindowTitle = async () => {
 }
 
 
-export default () => Widget.EventBox({
-    child: Widget.Box({
-        homogeneous: false,
-        children: [
-            Widget.Box({ className: 'bar-corner-spacing' }),
-            Widget.Overlay({
-                overlays: [
-                    Widget.Box({ hexpand: true }),
-                    Widget.Box({
-                        className: 'bar-sidemodule', hexpand: true,
-                        children: [Widget.Box({
-                            vertical: true,
-                            className: 'bar-space-button',
-                            children: [
-                                OptionalWindowTitleInstance,
-                            ]
-                        })]
-                    }),
-                ]
-            })
-        ]
-    })
-});
+export default async () => {
+    const optionalWindowTitleInstance = await WindowTitle();
+    return Widget.EventBox({
+        child: Widget.Box({
+            homogeneous: false,
+            children: [
+                Widget.Box({ className: 'bar-corner-spacing' }),
+                Widget.Overlay({
+                    overlays: [
+                        Widget.Box({ hexpand: true }),
+                        Widget.Box({
+                            className: 'bar-sidemodule', hexpand: true,
+                            children: [Widget.Box({
+                                vertical: true,
+                                className: 'bar-space-button',
+                                children: [
+                                    optionalWindowTitleInstance,
+                                ]
+                            })]
+                        }),
+                    ]
+                })
+            ]
+        })
+    });
+}
