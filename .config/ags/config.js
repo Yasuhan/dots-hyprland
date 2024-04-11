@@ -23,11 +23,11 @@ const COMPILED_STYLE_DIR = `${GLib.get_user_cache_dir()}/ags/user/generated`
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(n, 0).map(widget).flat(1);
+    return [1,2].map(widget).flat(1);
 }
 function forMonitorsAsync(widget) {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(n, 0).forEach((n) => widget().catch(print))
+    return range(n, 1,2).forEach((n) => widget(n).catch(print))
 }
 
 // SCSS compilation
