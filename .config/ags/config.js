@@ -9,7 +9,6 @@ import userOptions from './modules/.configuration/user_options.js';
 import { firstRunWelcome } from './services/messages.js';
 // Widgets
 import { Bar, BarCornerTopleft, BarCornerTopright } from './modules/bar/main.js';
-import Cheatsheet from './modules/cheatsheet/main.js';
 // import DesktopBackground from './modules/desktopbackground/main.js';
 // import Dock from './modules/dock/main.js';
 import Corner from './modules/screencorners/main.js';
@@ -47,7 +46,6 @@ const Windows = () => [
     // Dock(),
     Overview(),
     forMonitors(Indicator),
-    forMonitors(Cheatsheet),
     SideRight(),
     Session(),
     // forMonitors(Bar),
