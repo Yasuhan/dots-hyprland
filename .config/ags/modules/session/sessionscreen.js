@@ -12,7 +12,7 @@ const SessionButton = (name, icon, command, props = {}, colorid = 0) => {
     const buttonDescription = Widget.Revealer({
         vpack: 'end',
         transitionDuration: userOptions.animations.durationSmall,
-        transition: 'slide_down',
+        transition: 'slide_up',
         revealChild: false,
         child: Widget.Label({
             className: 'txt-smaller session-button-desc',
@@ -98,8 +98,8 @@ export default ({ id = '' }) => {
     return Widget.Box({
         className: 'session-bg',
         css: `
-        min-width: ${SCREEN_WIDTH}px;
-        min-height: ${SCREEN_HEIGHT}px;
+        min-width: 1920px;
+        min-height: 1200px;
         `, // idk why but height = screen height doesn't fill
         vertical: true,
         children: [

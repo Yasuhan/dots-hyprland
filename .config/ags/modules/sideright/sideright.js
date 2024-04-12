@@ -117,6 +117,14 @@ export default () => Box({
             vexpand: true,
             className: 'sidebar-right spacing-v-15',
             children: [
+                ModuleCalendar(),
+
+                Box({
+                    className: 'sidebar-group',
+                    children: [
+                        sidebarOptionsStack,
+                    ],
+                }),
                 Box({
                     vertical: true,
                     className: 'spacing-v-5',
@@ -126,13 +134,6 @@ export default () => Box({
                         togglesBox,
                     ]
                 }),
-                Box({
-                    className: 'sidebar-group',
-                    children: [
-                        sidebarOptionsStack,
-                    ],
-                }),
-                ModuleCalendar(),
             ]
         }),
     ],
