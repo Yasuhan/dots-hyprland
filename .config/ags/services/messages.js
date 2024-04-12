@@ -29,9 +29,3 @@ async function batteryMessage() {
         }
     }
 }
-
-// Run them
-firstRunWelcome();
-Utils.timeout(1, () => {
-    Battery.connect('changed', () => batteryMessage().catch(print));
-})
