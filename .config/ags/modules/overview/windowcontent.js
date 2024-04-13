@@ -11,7 +11,6 @@ import {
     DesktopEntryButton, ExecuteCommandButton, SearchButton, AiButton
 } from './searchbuttons.js';
 import { checkKeybind } from '../.widgetutils/keybind.js';
-import GeminiService from '../../services/gemini.js';
 
 // Add math funcs
 const { abs, sin, cos, tan, cot, asin, acos, atan, acot } = Math;
@@ -131,12 +130,6 @@ export const SearchAndWindows = () => {
                     execAndClose(text, true);
                 else
                     execAndClose(text, false);
-            }
-
-            else {
-                GeminiService.send(text);
-                App.closeWindow('overview');
-                App.openWindow('sideleft');
             }
         },
         onChange: (entry) => { // this is when you type
