@@ -129,9 +129,10 @@ export default () => Box({
                     vertical: true,
                     className: 'spacing-v-5',
                     children: [
+                        togglesBox,
                         timeRow,
                         // togglesFlowBox,
-                        togglesBox,
+
                     ]
                 }),
             ]
