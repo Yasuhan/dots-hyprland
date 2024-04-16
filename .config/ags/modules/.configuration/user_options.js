@@ -110,6 +110,10 @@ let configOptions = {
             'nextTab': "Ctrl+Page_Down",
             'prevTab': "Ctrl+Page_Up",
         },
+        'cheatsheet': {
+            'nextTab': "Page_Down",
+            'prevTab': "Page_Up",
+        }
     },
 }
 
