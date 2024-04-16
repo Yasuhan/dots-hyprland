@@ -20,7 +20,7 @@ else
 
     # ags run-js "wallpaper.set('')"
     # sleep 0.1 && ags run-js "wallpaper.set('${imgpath}')" &
-    swww img "$imgpath" --transition-step 100 --transition-fps 60 \
+    swww img "$imgpath" --resize fit --transition-step 100 --transition-fps 60 \
     --transition-type grow --transition-angle 30 --transition-duration 1 \
     --transition-pos "$cursorposx, $cursorposy_inverted"
 fi
