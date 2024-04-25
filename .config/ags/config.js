@@ -9,7 +9,7 @@ import userOptions from './modules/.configuration/user_options.js';
 // Widgets
 import { Bar, BarCornerTopleft, BarCornerTopright } from './modules/bar/main.js';
 // import DesktopBackground from './modules/desktopbackground/main.js';
-// import Dock from './modules/dock/main.js';
+import Dock from './modules/dock/main.js';
 import Corner from './modules/screencorners/main.js';
 import Indicator from './modules/indicators/main.js';
 import Overview from './modules/overview/main.js';
@@ -42,20 +42,19 @@ applyStyle().catch(print);
 
 const Windows = () => [
     // forMonitors(DesktopBackground),
-    // Dock(),
     Overview(),
     forMonitors(Indicator),
     SideRight(),
     Session(),
-    // forMonitors(Bar),
+    userOptions.dock.enabled ? forMonitors(Dock) : null,
     ...(userOptions.appearance.fakeScreenRounding ? [
-        forMonitors((id) => Corner(id, 'top left')),
-        forMonitors((id) => Corner(id, 'top right')),
-        forMonitors((id) => Corner(id, 'bottom left')),
-        forMonitors((id) => Corner(id, 'bottom right')),
-        forMonitors(BarCornerTopleft),
-        forMonitors(BarCornerTopright),
+        forMonitors((id) => Corner(id, 'top left', true)),
+        forMonitors((id) => Corner(id, 'top right', true)),
     ] : []),
+    forMonitors((id) => Corner(id, 'bottom left', userOptions.appearance.fakeScreenRounding)),
+    forMonitors((id) => Corner(id, 'bottom right', userOptions.appearance.fakeScreenRounding)),
+    forMonitors(BarCornerTopleft),
+    forMonitors(BarCornerTopright),
     forMonitors(Click2Close),
 ];
 
@@ -75,4 +74,3 @@ App.config({
 // Stuff that don't need to be toggled. And they're async so ugh...
 forMonitors(Bar);
 // Bar().catch(print); // Use this to debug the bar. Single monitor only.
-
