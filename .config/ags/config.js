@@ -45,7 +45,7 @@ const Windows = () => [
     Overview(),
     forMonitors(Indicator),
     SideRight(),
-    Session(),
+    forMonitors(Session),
     userOptions.dock.enabled ? forMonitors(Dock) : null,
     ...(userOptions.appearance.fakeScreenRounding ? [
         forMonitors((id) => Corner(id, 'top left', true)),
