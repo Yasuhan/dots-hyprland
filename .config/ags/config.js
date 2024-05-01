@@ -42,11 +42,12 @@ applyStyle().catch(print);
 
 const Windows = () => [
     // forMonitors(DesktopBackground),
+
     Overview(),
     forMonitors(Indicator),
     SideRight(),
     forMonitors(Session),
-    userOptions.dock.enabled ? forMonitors(Dock) : null,
+    ...(userOptions.dock.enabled ? [forMonitors(Dock)] : []),
     ...(userOptions.appearance.fakeScreenRounding ? [
         forMonitors((id) => Corner(id, 'top left', true)),
         forMonitors((id) => Corner(id, 'top right', true)),

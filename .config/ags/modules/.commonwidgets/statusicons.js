@@ -111,7 +111,7 @@ const BluetoothDevices = () => Widget.Box({
                 tooltipText: device.name,
                 children: [
                     Widget.Icon(`${device.iconName}-symbolic`),
-                    (device.batteryPercentage ? Widget.Label({
+                    ...(device.batteryPercentage ? [Widget.Label({
                         className: 'txt-smallie',
                         label: `${device.batteryPercentage}`,
                         setup: (self) => {
@@ -119,7 +119,7 @@ const BluetoothDevices = () => Widget.Box({
                                 self.label = `${device.batteryPercentage}`;
                             }, 'notify::batteryPercentage')
                         }
-                    }) : null),
+                    })] : []),
                 ]
             });
         });
