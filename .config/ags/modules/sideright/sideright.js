@@ -4,7 +4,6 @@ const { execAsync, exec } = Utils;
 const { Box, EventBox } = Widget;
 import {
     ToggleIconBluetooth,
-    ToggleIconWifi,
     HyprToggleIcon,
     ModuleNightLight,
     ModuleInvertColors,
@@ -18,7 +17,6 @@ import {
 } from "./quicktoggles.js";
 import ModuleNotificationList from "./centermodules/notificationlist.js";
 import ModuleAudioControls from "./centermodules/audiocontrols.js";
-import ModuleWifiNetworks from "./centermodules/wifinetworks.js";
 import ModuleBluetooth from "./centermodules/bluetooth.js";
 import ModuleConfigure from "./centermodules/configure.js";
 import { ModuleCalendar } from "./calendar.js";
@@ -42,12 +40,6 @@ const centerWidgets = [
         name: 'Bluetooth',
         materialIcon: 'bluetooth',
         contentWidget: ModuleBluetooth,
-    },
-    {
-        name: 'Wifi networks',
-        materialIcon: 'wifi',
-        contentWidget: ModuleWifiNetworks,
-        onFocus: () => execAsync('nmcli dev wifi list').catch(print),
     },
     {
         name: 'Live config',
@@ -87,7 +79,6 @@ const togglesBox = Widget.Box({
     hpack: 'center',
     className: 'sidebar-togglesbox spacing-h-5',
     children: [
-        ToggleIconWifi(),
         ToggleIconBluetooth(),
         await ModuleRawInput(),
         await HyprToggleIcon('touchpad_mouse', 'No touchpad while typing', 'input:touchpad:disable_while_typing', {}),

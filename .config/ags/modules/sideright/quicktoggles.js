@@ -11,23 +11,7 @@ import { setupCursorHover } from '../.widgetutils/cursorhover.js';
 import { MaterialIcon } from '../.commonwidgets/materialicon.js';
 import { sidebarOptionsStack } from './sideright.js';
 
-export const ToggleIconWifi = (props = {}) => Widget.Button({
-    className: 'txt-small sidebar-iconbutton',
-    tooltipText: 'Wifi | Right-click to configure',
-    onClicked: () => Network.toggleWifi(),
-    onSecondaryClick: () => {
-        sidebarOptionsStack.focusName('Wifi networks')
-    },
-    child: NetworkIndicator(),
-    setup: (self) => {
-        setupCursorHover(self);
-        self.hook(Network, button => {
-            button.toggleClassName('sidebar-button-active', [Network.wifi?.internet, Network.wired?.internet].includes('connected'))
-            button.tooltipText = (`${Network.wifi?.ssid} | Right-click to configure` || 'Unknown');
-        });
-    },
-    ...props,
-});
+
 
 export const ToggleIconBluetooth = (props = {}) => Widget.Button({
     className: 'txt-small sidebar-iconbutton',

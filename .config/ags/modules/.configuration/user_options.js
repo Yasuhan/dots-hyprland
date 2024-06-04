@@ -33,18 +33,10 @@ let configOptions = {
     'apps': {
         'bluetooth': "blueberry",
         'imageViewer': "loupe",
-        'network': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center wifi",
-        'settings': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center wifi",
+        'network': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center ",
+        'settings': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center ",
         'taskManager': "gnome-usage",
         'terminal': "foot", // This is only for shell actions
-    },
-    'battery': {
-        'low': 20,
-        'critical': 10,
-        'warnLevels': [20, 15, 5],
-        'warnTitles': ["Low battery", "Very low battery", 'Critical Battery'],
-        'warnMessages': ["Plug in the charger", "You there?", 'PLUG THE CHARGER ALREADY'],
-        'suspendThreshold': 3,
     },
     'brightness': {
         // Object of controller names for each monitor, either "brightnessctl" or "ddcutil" or "auto"

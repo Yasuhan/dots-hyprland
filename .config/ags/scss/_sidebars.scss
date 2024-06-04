@@ -948,33 +948,6 @@ $waifu_image_overlay_transparency: 0.7;
     padding: 0.341rem;
 }
 
-.sidebar-wifinetworks-network {
-    padding: 0.682rem;
-    @include normal-rounding;
-    background-color: $layer2;
-    color: $onLayer2;
-}
-
-.sidebar-wifinetworks-network:hover,
-.sidebar-wifinetworks-network:focus {
-    background-color: $layer2Hover;
-}
-
-.sidebar-wifinetworks-network:active {
-    background-color: $layer2Active;
-}
-
-.sidebar-wifinetworks-signal {
-    @include symbolic-icon;
-    font-size: 2.045rem;
-}
-
-.sidebar-wifinetworks-auth-entry {
-    @include small-rounding;
-    background-color: $layer1;
-    color: $onLayer1;
-    padding: 0.682rem;
-}
 
 .sidebar-centermodules-bottombar-button {
     @include full-rounding;

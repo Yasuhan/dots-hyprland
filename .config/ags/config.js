@@ -23,16 +23,10 @@ function forMonitors(widget) {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
     return [1,2].map(widget).flat(1);
 }
-function forMonitorsAsync(widget) {
-    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(n, 1,2).forEach((n) => widget(n).catch(print))
-}
+
 
 // Start stuff
 handleStyles(true);
-startAutoDarkModeService().catch(print);
-firstRunWelcome().catch(print);
-startBatteryWarningService().catch(print)
 
 const Windows = () => [
     // forMonitors(DesktopBackground),
